@@ -121,7 +121,7 @@ module.exports = {
 ┃ 💬 Group  : 『 ${groupPrefix} 』
 ┃ ⏰ Time   : ${time}
 ┃ 📅 Date   : ${date}
-┃ 👑 Owner  : ${owner}
+┃ 👑 Owner  : APON AHMED 
 ┃ ⚡ Status : ONLINE
 ╰━━━〔 ✨ Powered by Xalman 〕━━━╯`,
 			attachment: await getStreamFromURL(gif)
