@@ -7,7 +7,7 @@ module.exports = {
         role: 0,
         shortDescription: { en: "Displays owner details card" },
         longDescription: { en: "Sends owner information card when typing intro2 with or without prefix." },
-        category: "AMDIN",
+        category: "ADMIN",
         guide: { en: "{pn} or simply type 'intro2' in chat" },
         aliases: ["owner2", "info2"]
     },
