@@ -122,7 +122,7 @@ module.exports = {
                 isBedrock = savedData[threadID].isBedrock || false;
             } else {
                 return api.sendMessage(
-                    "⚠️ No server IP saved for this chat!\n\n💡 Save your server:\n• {pn} set demonhuntersmp.loca.lol:9145",
+                    "⚠️ No server IP saved for this chat!\n\n💡 Save your server:\n• {pn} set ip and port",
                     threadID,
                     messageID
                 );
@@ -181,7 +181,7 @@ module.exports = {
 📝 MOTD:
 "${data.motd}"
 ━━━━━━━━━━━━━━━━━━━━
-👤 System Managed by: FYNEX PAPPA`;
+👤 System create by: APON`;
 
             api.setMessageReaction("✅", messageID, () => {}, true);
 
