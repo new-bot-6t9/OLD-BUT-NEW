@@ -228,7 +228,7 @@ function react(api, id, threadID, emoji) {
 
 module.exports = {
 	config: {
-		name: "say",
+		name: "say3",
 		aliases: ["tts", "voice", "say3", "vocal"],
 		version: "2.0",
 		author: "Neoaz 🐊",
