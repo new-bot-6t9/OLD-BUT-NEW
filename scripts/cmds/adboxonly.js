@@ -2,37 +2,29 @@ module.exports = {
 	config: {
 		name: "onlyadminbox",
 		aliases: ["onlyadbox", "adboxonly", "adminboxonly"],
-		version: "1.3",
-		author: "NTKhang",
-		countDown: 5,
-		role: 1,
-		description: {
-			vi: "bật/tắt chế độ chỉ quản trị của viên nhóm mới có thể sử dụng bot",
-			en: "turn on/off only admin box can use bot"
+		version: "1.4",
+		author: "NTKhang x APON",
+		countDown: 3,
+		role: 1, // Only Group Admins & Bot Admins
+		shortDescription: {
+			en: "Turn on/off mode where only group admins can use the bot."
+		},
+		longDescription: {
+			en: "Restrict bot commands to group admins only, or toggle notification messages for non-admin users."
 		},
 		category: "box chat",
 		guide: {
-			vi: "   {pn} [on | off]: bật/tắt chế độ chỉ quản trị viên nhóm mới có thể sử dụng bot"
-				+ "\n   {pn} noti [on | off]: bật/tắt thông báo khi người dùng không phải là quản trị viên nhóm sử dụng bot",
-			en: "   {pn} [on | off]: turn on/off the mode only admin of group can use bot"
-				+ "\n   {pn} noti [on | off]: turn on/off the notification when user is not admin of group use bot"
+			en: "{pn} [on | off]\n{pn} noti [on | off]"
 		}
 	},
 
 	langs: {
-		vi: {
-			turnedOn: "Đã bật chế độ chỉ quản trị viên nhóm mới có thể sử dụng bot",
-			turnedOff: "Đã tắt chế độ chỉ quản trị viên nhóm mới có thể sử dụng bot",
-			turnedOnNoti: "Đã bật thông báo khi người dùng không phải là quản trị viên nhóm sử dụng bot",
-			turnedOffNoti: "Đã tắt thông báo khi người dùng không phải là quản trị viên nhóm sử dụng bot",
-			syntaxError: "Sai cú pháp, chỉ có thể dùng {pn} on hoặc {pn} off"
-		},
 		en: {
-			turnedOn: "Turned on the mode only admin of group can use bot",
-			turnedOff: "Turned off the mode only admin of group can use bot",
-			turnedOnNoti: "Turned on the notification when user is not admin of group use bot",
-			turnedOffNoti: "Turned off the notification when user is not admin of group use bot",
-			syntaxError: "Syntax error, only use {pn} on or {pn} off"
+			turnedOn: "╭━━━〔 🛡️ ONLY ADMIN BOX 〕━━━╮\n│\n│ ✅ **Only Admin Mode Enabled!**\n│ 👤 Now only group admins can use bot commands.\n│\n╰━━━━━━━━━━━━━━━━━━━━╯",
+			turnedOff: "╭━━━〔 🛡️ ONLY ADMIN BOX 〕━━━╮\n│\n│ 🔓 **Only Admin Mode Disabled!**\n│ 👥 Everyone in this group can now use the bot.\n│\n╰━━━━━━━━━━━━━━━━━━━━╯",
+			turnedOnNoti: "╭━━━〔 🔔 ADMIN NOTIFICATION 〕━━━╮\n│\n│ 🔔 **Warning Notifications Turned ON!**\n│ ⚠️ Non-admin users will be notified when attempting commands.\n│\n╰━━━━━━━━━━━━━━━━━━━━╯",
+			turnedOffNoti: "╭━━━〔 🔕 ADMIN NOTIFICATION 〕━━━╮\n│\n│ 🔕 **Warning Notifications Turned OFF!**\n│ 🔇 Bot will silently ignore commands from non-admins.\n│\n╰━━━━━━━━━━━━━━━━━━━━╯",
+			syntaxError: "╭━━━〔 ❌ INVALID USAGE 〕━━━╮\n│\n│ 📌 **Correct Formats:**\n│ ✦ {pn} on — Enable Only Admin mode\n│ ✦ {pn} off — Disable Only Admin mode\n│ ✦ {pn} noti on — Enable warning notifications\n│ ✦ {pn} noti off — Disable warning notifications\n│\n╰━━━━━━━━━━━━━━━━━━━━╯"
 		}
 	},
 
@@ -42,24 +34,30 @@ module.exports = {
 		let keySetData = "data.onlyAdminBox";
 		let indexGetVal = 0;
 
-		if (args[0] == "noti") {
+		const arg0 = args[0] ? args[0].toLowerCase() : "";
+
+		if (arg0 === "noti") {
 			isSetNoti = true;
 			indexGetVal = 1;
 			keySetData = "data.hideNotiMessageOnlyAdminBox";
 		}
 
-		if (args[indexGetVal] == "on")
+		const targetVal = args[indexGetVal] ? args[indexGetVal].toLowerCase() : "";
+
+		if (targetVal === "on") {
 			value = true;
-		else if (args[indexGetVal] == "off")
+		} else if (targetVal === "off") {
 			value = false;
-		else
+		} else {
 			return message.reply(getLang("syntaxError"));
+		}
 
 		await threadsData.set(event.threadID, isSetNoti ? !value : value, keySetData);
 
-		if (isSetNoti)
+		if (isSetNoti) {
 			return message.reply(value ? getLang("turnedOnNoti") : getLang("turnedOffNoti"));
-		else
+		} else {
 			return message.reply(value ? getLang("turnedOn") : getLang("turnedOff"));
+		}
 	}
 };
