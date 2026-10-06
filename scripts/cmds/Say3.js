@@ -10,7 +10,7 @@ const MAX_CHARS = 500;
 const REQUEST_TIMEOUT = 120000;
 
 const REACT_WAIT = "⏳";
-const REACT_DONE = "☑️";
+const REACT_DONE = "✅";
 const REACT_FAIL = "❌";
 
 const LANGUAGES = {
@@ -228,8 +228,8 @@ function react(api, id, threadID, emoji) {
 
 module.exports = {
 	config: {
-		name: "say3",
-		aliases: ["tts", "voice", "say3", "vocal"],
+		name: "say",
+		aliases: ["tts", "say3", "vocal"],
 		version: "2.0",
 		author: "Neoaz 🐊",
 		countDown: 5,
