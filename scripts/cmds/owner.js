@@ -1,59 +1,54 @@
 const moment = require("moment-timezone");
 
+const gifList = [
+    "https://i.ibb.co/1Gkvtfc6/54416ebec73c.gif"
+];
+
+const getRandomGif = () => gifList[Math.floor(Math.random() * gifList.length)];
+
 module.exports = {
-  config: {
-    name: "owner",
-    aliases: ["admininfo", "info", "ownerinfo"],
-    version: "3.1",
-    author: "APON",
-    countDown: 5,
-    role: 0,
-    shortDescription: { en: "Show owner information" },
-    category: "owner",
-    guide: { en: "{pn}" }
-  },
+    config: {
+        name: "owner",
+        aliases: ["whome", "intro", "owner"],
+        version: "2.5.1",
+        author: "APON",
+        countDown: 3,
+        role: 0,
+        shortDescription: { en: "Display bot owner's information" },
+        longDescription: { en: "Shows detailed information about the bot creator and developer." },
+        category: "system",
+        guide: { en: "{pn}" }
+    },
 
-  onStart: async function ({ api, event, message }) {
+    onStart: async function ({ message, event }) {
+        const getStream = global.utils.getStreamFromURL;
+        const gif = getRandomGif();
 
-    const ownerName = "APON";
-    const ownerAge = "20";
-    const address = "DHAKA, KERANIGANJ";
-    const religion = "ISLAM";
-    const fbLink = "https://www.facebook.com/share/1DtVfNfwSM/";
-    const gifLink = "https://i.imgur.com/9LUcpdL.gif";
-    const timeBD = moment().tz("Asia/Dhaka");
-    
-    const infoMsg = 
-`『 𝗢𝗪𝗡𝗘𝗥 𝗜𝗡𝗙𝗢𝗥𝗠𝗔𝗧𝗜𝗢𝗡 』
-━━━━━━━━━━━━━━━━━━━━━
+        const time = moment().tz("Asia/Dhaka").format("hh:mm A");
+        const date = moment().tz("Asia/Dhaka").format("DD MMM YYYY");
 
-👤 𝗔𝗕𝗢𝗨𝗧 𝗠𝗘:
-● Name: ${ownerName}
-● Age: ${ownerAge}
-● Religion: ${religion}
-● Address: ${address}
+        const ownerCard = 
+`╭━━━〔 👑OWNER INFO 〕━━━╮
+│
+│ 👤 Name      : APON AHMED
+│ 🎂 Age       : 20 Years
+│ 📍 Location  : Keraniganj, Dhaka, Bangladesh
+│ ☪️ Religion  : Islam
+│ 🎓 Education : SSC Completed
+│ 📱 Device    : POCO F3
+│ 💻 Role      :  Bot ADMIN,  OWNER
+│ 🎮 Gaming    : Minecraft (SMP), MLBB (Mythic), PUBG Mobile
+│ 💖 Status    : In a Relationship
+│
+│ ⏰ Time      : ${time}
+│ 📅 Date      : ${date}
+│ ⚡ Status    : ACTIVE & ONLINE
+│
+╰━━━〔 ✨ Powered by  APON〕━━━╯`;
 
-📞 𝗖𝗢𝗡𝗧𝗔𝗖𝗧 𝗗𝗘𝗧𝗔𝗜𝗟𝗦:
-● FB ID: ${fbLink}
-
-⏰ 𝗗𝗔𝗧𝗘 & 𝗧𝗜𝗠𝗘 (𝗕𝗗):
-● ${timeBD.format("DD MMMM, YYYY")}
-● ${timeBD.format("hh:mm:ss A")}
-━━━━━━━━━━━━━━━━━━━━━`;
-
-    try {
-      return message.reply({
-        body: infoMsg,
-        attachment: await global.utils.getStreamFromURL(gifLink)
-      });
-    } catch (e) {
-      return message.reply(infoMsg);
+        return message.reply({
+            body: ownerCard,
+            attachment: await getStream(gif)
+        });
     }
-  },
-
-  onChat: async function ({ event, message }) {
-    if (event.body?.trim().toLowerCase() === "info") {
-      return this.onStart({ message, event });
-    }
-  }
 };
